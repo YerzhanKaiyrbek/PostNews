@@ -211,6 +211,6 @@ python manage.py shell
 	time.timezone.utc), 'commentUser': 3, 'rating': 1, 'text': 'Hello Skillfactory'}]>
 	>>>
 
-Thanks for checking
+
 
 
