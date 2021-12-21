@@ -6,9 +6,10 @@ News
 
 {% block content %}
     <h1>Все новости</h1>
+    <h3>{{ time_now|date:'M d Y' }}</h3>
     <hr>
     {% if news %}
-        <table>
+        <table class="data">
             <tr>
                 <td>
                     Название
@@ -22,13 +23,13 @@ News
             </tr>
         {% for new in news %}
             <tr>
-                <td>
+                <td style="text-align: right">
                     {{ new.title }}
                 </td>
-                <td>
+                <td style="text-align: right">
                     {{ new.text|truncatechars:50 }}
                 </td>
-                <td>
+                <td style="text-align: center">
                     {{ new.dateCreation }}
                 </td>
             </tr>
