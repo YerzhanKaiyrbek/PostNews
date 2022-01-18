@@ -4,7 +4,7 @@ register = template.Library()
 
 @register.filter(name='Censor')
 def Censor(value):
-    Banned_List = ['idiot', 'stupid', 'donkey']
+    Banned_List = ['idiot', 'stupid', 'donkey', 'Stupid']
     sentence = value.split()
     for i in Banned_List:
         for words in sentence:
