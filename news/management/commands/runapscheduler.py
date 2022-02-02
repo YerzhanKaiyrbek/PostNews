@@ -92,7 +92,7 @@ def news_sender():
 
             msg = EmailMultiAlternatives(
                 subject=f'Здравствуй, {subscriber.username}, новые статьи за прошлую неделю в вашем разделе!',
-                from_email='factoryskill@yandex.ru',
+                from_email='yerzhan.kaiyrbek@yandex.ru',
                 to=[subscriber.email]
             )
 
