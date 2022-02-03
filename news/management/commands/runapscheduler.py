@@ -12,7 +12,8 @@ from django_apscheduler.models import DjangoJobExecution
 
 from datetime import datetime
 
-from NewsPaper.news.models import Category, Post
+from news.models import Category, Post
+from news.tasks import send_mail_every_week
 
 logger = logging.getLogger(__name__)
 
@@ -75,12 +76,8 @@ def news_sender():
         print()
         print()
 
-        # Третий цикл - до формирование письма (имя кому отправляем получаем тут) и рассылка готового
-        # письма подписчикам, которые подписаны под данной категорией
-        # создаем приветственное письмо с нашим списком новых за неделю статей конкретной категории,
-        # помещаем в письмо шаблон (html страничку), а также передаем в шаблон нужные нам переменные
+
         for subscriber in subscribers:
-            # для удобства в консоль добавляем разграничители и пометки
             print('____________________________', subscriber.email, '___________________________________')
             print()
             print('Письмо, отправленное по адресу: ', subscriber.email)
@@ -90,13 +87,14 @@ def news_sender():
                                      'category_name': category.name,
                                      'week_number_last': week_number_last})
 
-            msg = EmailMultiAlternatives(
-                subject=f'Здравствуй, {subscriber.username}, новые статьи за прошлую неделю в вашем разделе!',
-                from_email='factoryskill@yandex.ru',
-                to=[subscriber.email]
-            )
+            send_mail_every_week(sub_username, sub_useremail, html_content)
+            ##msg = EmailMultiAlternatives(
+                ##subject=f'Здравствуй, {subscriber.username}, новые статьи за прошлую неделю в вашем разделе!',
+                ##from_email='factoryskill@yandex.ru',
+                ##to=[subscriber.email]
+            ##)
 
-            msg.attach_alternative(html_content, 'text/html')
+            ##msg.attach_alternative(html_content, 'text/html')
             print()
 
             # для удобства в консоль выводим содержимое нашего письма, в тестовом режиме проверим, что и

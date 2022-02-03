@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'fpages',
+    'django_apscheduler',
     'django_filters',
     'sign',
     'protect',
@@ -49,7 +50,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'appointments',
-    'django_apscheduler',
 ]
 
 SITE_ID = 1
@@ -167,7 +167,7 @@ EMAIL_HOST_USER = 'yerzhan.kaiyrbek'  # ваше имя пользователя
 EMAIL_HOST_PASSWORD = 'Atygai_1988'  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
 
-SERVER_EMAIL = 'factoryskill@yandex.ru'  # это будет у нас вместо аргумента FROM в массовой рассылке
+SERVER_EMAIL = 'yerzhan.kaiyrbek@yandex.ru'  # это будет у нас вместо аргумента FROM в массовой рассылке
 
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -177,3 +177,16 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
 # если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+# Для задачи D7
+# CELERY_BROKER_URL — указывает на URL брокера сообщений (Redis). По умолчанию он находится на порту 6379.
+# CELERY_RESULT_BACKEND — указывает на хранилище результатов выполнения задач.
+# CELERY_ACCEPT_CONTENT — допустимый формат данных.
+# CELERY_TASK_SERIALIZER — метод сериализации задач.
+# CELERY_RESULT_SERIALIZER — метод сериализации результатов.
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
