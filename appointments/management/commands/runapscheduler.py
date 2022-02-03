@@ -11,15 +11,17 @@ from django_apscheduler.models import DjangoJobExecution
 logger = logging.getLogger(__name__)
 
 
-# наша задача по выводу текста на экран
-def my_job():
-    #  Your job processing logic here...
+# наша задача - рассылка корреспонденции по вкусам подписчикам
+def news_sender():
+
+
     print('hello from job')
+
+
 
 
 # функция, которая будет удалять неактуальные задачи
 def delete_old_job_executions(max_age=604_800):
-    """This job deletes all apscheduler job executions older than `max_age` from the database."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
 
@@ -32,21 +34,25 @@ class Command(BaseCommand):
 
         # добавляем работу нашему задачнику
         scheduler.add_job(
-            my_job,
-            trigger=CronTrigger(second="*/10"),
+            news_sender,
+            # отправляем письма подписчикам в понедельник в 8 утра
+            trigger=CronTrigger(
+                day_of_week="mon", hour="08", minute="00"
+            ),
             # То же, что и интервал, но задача тригера таким образом более понятна django
-            id="my_job",  # уникальный айди
+            id="news_sender",  # уникальный айди
             max_instances=1,
             replace_existing=True,
         )
-        logger.info("Added job 'my_job'.")
+        logger.info("Добавлена работка 'news_sender'.")
 
         scheduler.add_job(
             delete_old_job_executions,
             trigger=CronTrigger(
                 day_of_week="mon", hour="00", minute="00"
             ),
-            # Каждую неделю будут удаляться старые задачи, которые либо не удалось выполнить, либо уже выполнять не надо.
+            # Каждую неделю будут удаляться старые задачи, которые либо не удалось выполнить,
+            # либо уже выполнять не надо.
             id="delete_old_job_executions",
             max_instances=1,
             replace_existing=True,
@@ -56,9 +62,11 @@ class Command(BaseCommand):
         )
 
         try:
-            logger.info("Starting scheduler...")
+            logger.info("Задачник запущен")
+            print('Задачник запущен')
             scheduler.start()
         except KeyboardInterrupt:
-            logger.info("Stopping scheduler...")
+            logger.info("Задачник остановлен...")
             scheduler.shutdown()
-            logger.info("Scheduler shut down successfully!")
+            print('Задачник остановлен')
+            logger.info("Задачник остановлен успешно!")
