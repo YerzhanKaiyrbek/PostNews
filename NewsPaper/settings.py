@@ -167,7 +167,7 @@ EMAIL_HOST_USER = 'yerzhan.kaiyrbek'  # ваше имя пользователя
 EMAIL_HOST_PASSWORD = 'Atygai_1988'  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
 
-SERVER_EMAIL = 'factoryskill@yandex.ru'  # это будет у нас вместо аргумента FROM в массовой рассылке
+SERVER_EMAIL = 'yerzhan.kaiyrbek@yandex.ru'  # это будет у нас вместо аргумента FROM в массовой рассылке
 
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
