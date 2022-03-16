@@ -87,12 +87,14 @@ def news_sender():
                                      'category_name': category.name,
                                      'week_number_last': week_number_last})
 
+
             send_mail_every_week(sub_username, sub_useremail, html_content)
             ##msg = EmailMultiAlternatives(
                 ##subject=f'Здравствуй, {subscriber.username}, новые статьи за прошлую неделю в вашем разделе!',
                 ##from_email='factoryskill@yandex.ru',
                 ##to=[subscriber.email]
             ##)
+
 
             ##msg.attach_alternative(html_content, 'text/html')
             print()

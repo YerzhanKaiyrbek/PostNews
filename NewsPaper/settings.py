@@ -178,13 +178,6 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 # если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
-# Для задачи D7
-# CELERY_BROKER_URL — указывает на URL брокера сообщений (Redis). По умолчанию он находится на порту 6379.
-# CELERY_RESULT_BACKEND — указывает на хранилище результатов выполнения задач.
-# CELERY_ACCEPT_CONTENT — допустимый формат данных.
-# CELERY_TASK_SERIALIZER — метод сериализации задач.
-# CELERY_RESULT_SERIALIZER — метод сериализации результатов.
-
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
